@@ -1,4 +1,4 @@
-# Commit Message AI Generator
+# `cmai` - AI Commit Message Generator
 
 A command-line tool that automatically generates conventional commit messages using AI, based on your staged git changes.
 
@@ -9,15 +9,19 @@ A command-line tool that automatically generates conventional commit messages us
 - 🔒 Secure local API key storage
 - 🚀 Automatic git commit and push
 - 🐛 Debug mode for troubleshooting
+- 💻 Cross-platform support (Windows, Linux, macOS)
 
 ## Prerequisites
 
 - Git installed and configured
-- Bash shell environment
+- For Windows: Git Bash or WSL installed
+- For Linux/macOS: Bash shell environment
 - An [OpenRouter](https://openrouter.ai/) API key
 - `curl` installed
 
 ## Installation
+
+### Linux/macOS
 
 1. Clone this repository: 
 
@@ -37,6 +41,31 @@ This will:
 - Install the script globally as `cmai`
 - Set up proper permissions
 
+### Windows
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/yourusername/commit-message-ai.git
+cd commit-message-ai
+```
+
+2. Run the installation script in Git Bash:
+
+```bash
+./install.sh
+```
+
+Or manually:
+- Copy `git-commit.sh` to `%USERPROFILE%\git-commit-ai\`
+- Add the directory to your PATH environment variable
+- Rename `git-commit.sh` to `cmai.sh`
+
+This will:
+- Create necessary directories
+- Install the script globally as `cmai`
+- Set up proper permissions
+
 ## Configuration
 
 Set up your OpenRouter API key:
@@ -45,7 +74,9 @@ Set up your OpenRouter API key:
 cmai <your_openrouter_api_key>
 ```
 
-The API key will be securely stored in `~/.config/git-commit-ai/config`
+The API key will be securely stored in:
+- Linux/macOS: `~/.config/git-commit-ai/config`
+- Windows: `%USERPROFILE%\.config\git-commit-ai\config`
 
 ## Usage
 
@@ -91,6 +122,8 @@ Example generated commit messages:
 
 ## Directory Structure
 
+### Linux/macOS
+
 ```
 ~
 ├── git-commit-ai/
@@ -102,6 +135,17 @@ Example generated commit messages:
 └── local/
 └── bin/
 └── cmai -> ~/git-commit-ai/git-commit.sh
+```
+
+### Windows
+
+```
+%USERPROFILE%
+├── git-commit-ai/
+│ └── cmai.sh
+└── .config/
+└── git-commit-ai/
+└── config
 ```
 
 ## Security
@@ -124,7 +168,14 @@ Example generated commit messages:
    - Run with `--debug` flag to see detailed logs
    - Check API responses and git operations
 
+4. **Windows-specific issues**
+   - Make sure Git Bash is installed
+   - Check if curl is available in Git Bash
+   - Verify PATH environment variable includes the installation directory
+
 ## Uninstallation
+
+### Linux/macOS
 
 ```bash
 bash
@@ -132,6 +183,14 @@ sudo rm /usr/local/bin/cmai
 rm -rf ~/git-commit-ai
 rm -rf ~/.config/git-commit-ai
 ```
+
+### Windows
+
+```bash
+rm -rf "$USERPROFILE/git-commit-ai"
+rm -rf "$USERPROFILE/.config/git-commit-ai"
+```
+Then remove the directory from your PATH environment variable
 
 ## Contributing
 
