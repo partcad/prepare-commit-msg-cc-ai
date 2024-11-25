@@ -7,6 +7,7 @@ A command-line tool that automatically generates conventional commit messages us
 ## Features
 
 - 🤖 AI-powered commit message generation (using `google/gemini-flash-1.5-8b` - SUPER CHEAP!)
+  - Around $0.00001/commit -> $1 per 100K commit messages!
 - 📝 Follows [Conventional Commits](https://www.conventionalcommits.org/) format
 - 🔒 Secure local API key storage
 - 🚀 Automatic git commit and push
