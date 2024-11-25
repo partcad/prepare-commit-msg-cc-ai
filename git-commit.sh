@@ -140,13 +140,11 @@ if [ -z "$COMMIT_FULL" ] || [ "$COMMIT_FULL" = "null" ]; then
 fi
 
 # Clean the message:
-# 1. Convert literal \n to newlines
-# 2. Remove actual newlines and carriage returns
-# 3. Remove leading/trailing whitespace
-# 4. Remove any remaining escape sequences
+# 1. Preserve the structure of the commit message
+# 2. Clean up escape sequences
 COMMIT_FULL=$(echo "$COMMIT_FULL" | \
     sed 's/\\n/\n/g' | \
-    tr -d '\n\r' | \
+    sed 's/\\r//g' | \
     sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | \
     sed 's/\\[[:alpha:]]//g')
 
