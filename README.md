@@ -4,7 +4,7 @@ A command-line tool that automatically generates conventional commit messages us
 
 ## Features
 
-- 🤖 AI-powered commit message generation
+- 🤖 AI-powered commit message generation (using `google/gemini-flash-1.5-8b` - SUPER CHEAP!)
 - 📝 Follows [Conventional Commits](https://www.conventionalcommits.org/) format
 - 🔒 Secure local API key storage
 - 🚀 Automatic git commit and push
@@ -94,6 +94,13 @@ cmai --push
 cmai -p
 ```
 
+To use a different AI model:
+```bash
+cmai --model qwen/qwen-2.5-coder-32b-instruct
+```
+
+List of available models: https://openrouter.ai/models
+
 This will:
 - Stage all changes
 - Generate a commit message using AI
@@ -130,6 +137,12 @@ cmai --debug
 
 # Debug mode with push
 cmai --debug --push
+
+# Use a different AI model
+cmai --model qwen/qwen-2.5-coder-32b-instruct
+
+# Combine multiple flags
+cmai --debug --push --model qwen/qwen-2.5-coder-32b-instruct
 ```
 
 Example generated commit messages:
@@ -226,3 +239,15 @@ MIT License - see LICENSE file for details
 
 - [OpenRouter](https://openrouter.ai/) for providing the AI API
 - [Conventional Commits](https://www.conventionalcommits.org/) for the commit message format
+
+## My other products
+
+- [DigiCord AI](https://digicord.site) - The Most Useful AI Chatbot on Discord
+- [IndieBacklink.com](https://indiebacklink.com) - Indie Makers Unite: Feature, Support, Succeed
+- [TopRanking.ai](https://topranking.ai) - AI Directory, listing AI products
+- [ZII.ONE](https://zii.one) - Personalized Link Shortener
+- [VidCap.xyz](https://vidcap.xyz) - Extract Youtube caption, download videos, capture screenshot, summarize,…
+- [ReadTube.me](https://readtube.me) - Write blog articles based on Youtube videos
+- [BoostTogether.com](https://boosttogether.com) - The Power of WE in Advertising
+- [AIVN.Site](https://aivn.site) - Face Swap, Remove BG, Photo Editor,…
+- [DxUp.dev](https://dxup.dev) - Developer-focused platform for app deployment & centralized cloud resource management.

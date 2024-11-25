@@ -7,6 +7,8 @@ CONFIG_FILE="$CONFIG_DIR/config"
 DEBUG=false
 # Push flag
 PUSH=false
+# Model selection
+MODEL="google/gemini-flash-1.5-8b"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -18,6 +20,16 @@ while [[ $# -gt 0 ]]; do
         --push|-p)
             PUSH=true
             shift
+            ;;
+        --model)
+            # Check if next argument exists and doesn't start with -
+            if [[ -n "$2" && "$2" != -* ]]; then
+                MODEL="$2"
+                shift 2
+            else
+                echo "Error: --model requires a valid model name"
+                exit 1
+            fi
             ;;
         *)
             API_KEY_ARG="$1"
@@ -73,7 +85,7 @@ debug_log "API key retrieved from config"
 
 if [ -z "$API_KEY" ]; then
     echo "No API key found. Please provide the OpenRouter API key as an argument"
-    echo "Usage: ./git-commit.sh [--debug] [--push|-p] <api_key>"
+    echo "Usage: ./git-commit.sh [--debug] [--push|-p] [--model <model_name>] <api_key>"
     exit 1
 fi
 
@@ -94,7 +106,7 @@ fi
 REQUEST_BODY=$(cat <<EOF
 {
   "stream": false,
-  "model": "google/gemini-flash-1.5-8b",
+  "model": "$MODEL",
   "messages": [
     {
       "role": "user",
@@ -104,7 +116,7 @@ REQUEST_BODY=$(cat <<EOF
 }
 EOF
 )
-debug_log "Request body prepared" "$REQUEST_BODY"
+debug_log "Request body prepared with model: $MODEL" "$REQUEST_BODY"
 
 # Make the API request
 debug_log "Making API request to OpenRouter"
