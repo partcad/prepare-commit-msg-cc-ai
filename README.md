@@ -2,6 +2,8 @@
 
 A command-line tool that automatically generates conventional commit messages using AI, based on your staged git changes.
 
+![Example Git Commit Messages](./example.png)
+
 ## Features
 
 - 🤖 AI-powered commit message generation (using `google/gemini-flash-1.5-8b` - SUPER CHEAP!)
@@ -79,6 +81,8 @@ The API key will be securely stored in:
 - Windows: `%USERPROFILE%\.config\git-commit-ai\config`
 
 ## Usage
+
+![Usage Demonstration](./usage.png)
 
 1. Make your code changes
 2. Generate commit message and commit changes:
