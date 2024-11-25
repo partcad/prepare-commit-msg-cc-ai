@@ -108,8 +108,8 @@ RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
     -d "$REQUEST_BODY")
 debug_log "API response received" "$RESPONSE"
 
-# Extract commit message from response
-COMMIT_MESSAGE=$(echo "$RESPONSE" | grep -o '"content":"[^"]*"' | cut -d'"' -f4)
+# Extract and clean the commit message (remove newlines, leading/trailing spaces, and quotes)
+COMMIT_MESSAGE=$(echo "$RESPONSE" | grep -o '"content":"[^"]*"' | cut -d'"' -f4 | tr -d '\n\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 debug_log "Extracted commit message" "$COMMIT_MESSAGE"
 
 if [ -z "$COMMIT_MESSAGE" ]; then

@@ -26,8 +26,8 @@ A command-line tool that automatically generates conventional commit messages us
 1. Clone this repository: 
 
 ```bash
-git clone https://github.com/yourusername/commit-message-ai.git
-cd commit-message-ai
+git clone https://github.com/mrgoonie/cmai.git
+cd cmai
 ```
 
 2. Run the installation script:
@@ -46,8 +46,8 @@ This will:
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/commit-message-ai.git
-cd commit-message-ai
+git clone https://github.com/mrgoonie/cmai.git
+cd cmai
 ```
 
 2. Run the installation script in Git Bash:
@@ -81,7 +81,7 @@ The API key will be securely stored in:
 ## Usage
 
 1. Make your code changes
-2. Generate commit message and push:
+2. Generate commit message and push by running:
 
 ```bash
 cmai
@@ -115,10 +115,10 @@ cmai --debug
 ```
 
 Example generated commit messages:
-- `feat: add user authentication system`
-- `fix: resolve memory leak in data processing`
-- `docs: update API documentation`
-- `style: improve responsive layout for mobile devices`
+- `feat(api): add user authentication system`
+- `fix(data): resolve memory leak in data processing`
+- `docs(api): update API documentation`
+- `style(ui): improve responsive layout for mobile devices`
 
 ## Directory Structure
 
