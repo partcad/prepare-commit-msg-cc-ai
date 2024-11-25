@@ -5,12 +5,18 @@ CONFIG_FILE="$CONFIG_DIR/config"
 
 # Debug mode flag
 DEBUG=false
+# Push flag
+PUSH=false
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
         --debug)
             DEBUG=true
+            shift
+            ;;
+        --push|-p)
+            PUSH=true
             shift
             ;;
         *)
@@ -67,7 +73,7 @@ debug_log "API key retrieved from config"
 
 if [ -z "$API_KEY" ]; then
     echo "No API key found. Please provide the OpenRouter API key as an argument"
-    echo "Usage: ./git-commit.sh [--debug] <api_key>"
+    echo "Usage: ./git-commit.sh [--debug] [--push|-p] <api_key>"
     exit 1
 fi
 
@@ -139,13 +145,16 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Push to origin
-debug_log "Pushing to origin"
-git push origin
+# Push to origin if flag is set
+if [ "$PUSH" = true ]; then
+    debug_log "Pushing to origin"
+    git push origin
 
-if [ $? -ne 0 ]; then
-    echo "Failed to push changes"
-    exit 1
+    if [ $? -ne 0 ]; then
+        echo "Failed to push changes"
+        exit 1
+    fi
+    echo "Successfully pushed changes to origin"
 fi
 
 echo "Successfully committed and pushed changes with message:"

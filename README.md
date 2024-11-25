@@ -81,17 +81,24 @@ The API key will be securely stored in:
 ## Usage
 
 1. Make your code changes
-2. Generate commit message and push by running:
+2. Generate commit message and commit changes:
 
 ```bash
 cmai
+```
+
+To also push changes to remote:
+```bash
+cmai --push
+# or
+cmai -p
 ```
 
 This will:
 - Stage all changes
 - Generate a commit message using AI
 - Commit the changes
-- Push to the remote repository
+- Push to the remote repository (if --push flag is used)
 
 ### Debug Mode
 
@@ -99,6 +106,11 @@ To see detailed information about what's happening:
 
 ```bash
 cmai --debug
+```
+
+You can combine flags:
+```bash
+cmai --debug --push
 ```
 
 ## Examples
@@ -110,8 +122,14 @@ cmai your_openrouter_api_key
 # Normal usage
 cmai
 
+# Commit and push
+cmai --push
+
 # Debug mode
 cmai --debug
+
+# Debug mode with push
+cmai --debug --push
 ```
 
 Example generated commit messages:
