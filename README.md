@@ -2,6 +2,8 @@
 
 A command-line tool that automatically generates conventional commit messages using AI, based on your staged git changes.
 
+Your commit messages will look like this:
+
 ![Example Git Commit Messages](./example.png)
 
 ## Features
