@@ -111,6 +111,10 @@ REQUEST_BODY=$(cat <<EOF
     {
       "role": "user",
       "content": "Generate a commit message in conventional commit standard format based on the following file changes:\n\`\`\`\n${CHANGES}\n\`\`\`\n- IMPORTANT: Do not include any explanation in your response, only return a commit message content"
+    },
+    {
+      "role": "system",
+      "content": "Provide a detailed commit message with a title and description. The title should be a concise summary (max 50 characters). The description should provide more context about the changes, explaining why the changes were made and their impact. Use bullet points if multiple changes are significant."
     }
   ]
 }
@@ -126,23 +130,29 @@ RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
     -d "$REQUEST_BODY")
 debug_log "API response received" "$RESPONSE"
 
-# Extract and clean the commit message (remove newlines, leading/trailing spaces, and quotes)
-COMMIT_MESSAGE=$(echo "$RESPONSE" | grep -o '"content":"[^"]*"' | cut -d'"' -f4)
+# Extract and clean the commit message
+# First, try to parse the response as JSON and extract the content
+COMMIT_FULL=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
+
+# If jq fails or returns null, fallback to grep method
+if [ -z "$COMMIT_FULL" ] || [ "$COMMIT_FULL" = "null" ]; then
+    COMMIT_FULL=$(echo "$RESPONSE" | grep -o '"content":"[^"]*"' | cut -d'"' -f4)
+fi
 
 # Clean the message:
 # 1. Convert literal \n to newlines
 # 2. Remove actual newlines and carriage returns
 # 3. Remove leading/trailing whitespace
 # 4. Remove any remaining escape sequences
-COMMIT_MESSAGE=$(echo "$COMMIT_MESSAGE" | \
+COMMIT_FULL=$(echo "$COMMIT_FULL" | \
     sed 's/\\n/\n/g' | \
     tr -d '\n\r' | \
     sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | \
     sed 's/\\[[:alpha:]]//g')
 
-debug_log "Extracted commit message" "$COMMIT_MESSAGE"
+debug_log "Extracted commit message" "$COMMIT_FULL"
 
-if [ -z "$COMMIT_MESSAGE" ]; then
+if [ -z "$COMMIT_FULL" ]; then
     echo "Failed to generate commit message. API response:"
     echo "$RESPONSE"
     exit 1
@@ -150,7 +160,7 @@ fi
 
 # Execute git commit
 debug_log "Executing git commit"
-git commit -m "$COMMIT_MESSAGE"
+git commit -m "$COMMIT_FULL"
 
 if [ $? -ne 0 ]; then
     echo "Failed to commit changes"
@@ -170,5 +180,5 @@ if [ "$PUSH" = true ]; then
 fi
 
 echo "Successfully committed and pushed changes with message:"
-echo "$COMMIT_MESSAGE"
+echo "$COMMIT_FULL"
 debug_log "Script completed successfully" 
