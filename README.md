@@ -4,7 +4,7 @@ A command-line tool that automatically generates conventional commit messages us
 
 Your commit messages will look like this:
 
-![Example Git Commit Messages](https://github.com/mrgoonie/cmai/blob/main/example.png)
+![Example Git Commit Messages](https://github.com/mrgoonie/cmai/blob/main/example.png?raw=true)
 
 ## Features
 
