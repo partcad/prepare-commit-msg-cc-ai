@@ -110,7 +110,7 @@ REQUEST_BODY=$(cat <<EOF
   "messages": [
     {
       "role": "user",
-      "content": "Generate a commit message in conventional commit standard format based on the following file changes:\n\`\`\`\n${CHANGES}\n\`\`\`\n- IMPORTANT: Do not include any explanation in your response, only return a commit message content, do not wrap it in backticks"
+      "content": "Generate a commit message in conventional commit standard format based on the following file changes:\n\`\`\`\n${CHANGES}\n\`\`\`\n- Commit message title must be a concise summary (max 100 characters)\n- IMPORTANT: Do not include any explanation in your response, only return a commit message content, do not wrap it in backticks"
     },
     {
       "role": "system",
