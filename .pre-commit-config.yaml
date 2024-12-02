@@ -1,0 +1,33 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_install_hook_types: [pre-commit, prepare-commit-msg]
+repos:
+  - repo: local
+    hooks:
+      - id: prepare-commit-msg
+        name: Git Commit AI
+        entry: bash prepare-commit-msg.sh
+        args: ["--open-source", "--commit-msg-filename"]
+        language: system
+        stages: [prepare-commit-msg]
+      - id: keep-a-changelog
+        name: Changelog AI
+        description: A hook to assist with updating CHANGELOG.md using AI.
+        entry: bash keep-a-changelog.sh
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: detect-private-key
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
