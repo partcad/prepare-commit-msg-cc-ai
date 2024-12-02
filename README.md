@@ -192,7 +192,7 @@ Join `#pre-commit` channel on
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=partcad/prepare-commit-msg&type=Date)](https://star-history.com/#partcad/prepare-commit-msg&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=partcad/pre-commit&type=Timeline)](https://star-history.com/#partcad/pre-commit&Timeline)
 
 [Apache License 2.0]: https://github.com/partcad/pre-commit/blob/main/.github/LICENSE
 [`mrgoonie/cmai.git`]: https://github.com/mrgoonie/cmai
