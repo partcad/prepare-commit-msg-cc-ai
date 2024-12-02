@@ -181,7 +181,7 @@ Use this hook.
 ## Join The Project Team
 
 Join `#pre-commit` channel on
-<a href="https://discord.gg/9AEu3vF7rv"><img alt="Discord" src="https://img.shields.io/discord/1091497262733074534?logo=discord&logoColor=white&label=Discord&labelColor=353c43&color=31c151"></a>
+<a href="https://discord.gg/UMttCQb8xe"><img alt="Discord" src="https://img.shields.io/discord/1091497262733074534?logo=discord&logoColor=white&label=Discord&labelColor=353c43&color=31c151"></a>
 
 ## Attribution
 

@@ -173,6 +173,11 @@ pre-commit try-repo \
 - Original work in upstream [`mrgoonie/cmai.git`] licensed under [MIT]
 - This fork is licensed under [Apache License 2.0]
 
+## Join The Project Team
+
+Join `#pre-commit` channel on
+<a href="https://discord.gg/UMttCQb8xe"><img alt="Discord" src="https://img.shields.io/discord/1091497262733074534?logo=discord&logoColor=white&label=Discord&labelColor=353c43&color=31c151"></a>
+
 ## Roadmap
 
 - [ ] Cross-platform support (Windows, Linux, macOS)
