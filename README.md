@@ -64,7 +64,7 @@ your staged git changes. Your commit messages will look like this:
    # See https://pre-commit.com/hooks.html for more hooks
    repos:
      - repo: https://github.com/partcad/pre-commit
-       rev: pre-commit
+       rev: v1.1.0
        hooks:
          - id: prepare-commit-msg
            verbose: true
@@ -103,7 +103,7 @@ share commit diffs using `git diff --cached` with OpenRouter and get more detail
    # See https://pre-commit.com/hooks.html for more hooks
    repos:
      - repo: https://github.com/partcad/pre-commit
-       rev: pre-commit
+       rev: v1.1.0
        hooks:
          - id: keep-a-changelog
            verbose: true

@@ -66,6 +66,7 @@ IMPORTANT:
 - Provide the final CHANGELOG.md file as your response.
 - Do not wrap it in backticks
 - Return the entire file, old and new entries included.
+- Keep all existing entries intact.
 
 Here is output from \`git diff --cached\`:
 
