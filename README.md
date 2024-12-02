@@ -1,260 +1,194 @@
-# `cmai` - AI Commit Message Generator
+# `pre-commit` - Git Hooks backed by AI
 
-A command-line tool that automatically generates conventional commit messages using AI, based on your staged git changes.
+Fed up with crafting commit messages by hand?
 
-Your commit messages will look like this:
+[![Git Commit](https://imgs.xkcd.com/comics/git_commit.png)](https://xkcd.com/1296/)
 
-![Example Git Commit Messages](./example-commit-message.png)
+## Attribution
 
-## Features
+- [`mrgoonie/cmai.git`](https://github.com/mrgoonie/cmai) for the original shell script.
+- [OpenRouter](https://openrouter.ai/) for providing the AI API.
+- [Conventional Commits](https://www.conventionalcommits.org/) for the commit message format.
+- [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) for the changelog format.
+
+## Prerequisites
+
+- `git` installed and configured
+- `pre-commit` installed and configured
+- `jq` installed
+  - Used for escaping JSON
+- An [OpenRouter](https://openrouter.ai/) API key
+- `curl` installed
+
+## Configuration
+
+Export API key for [OpenRouter](https://openrouter.ai/)
+
+Option 1: Store in .env file (recommended):
+
+```bash
+echo "OPENROUTER_API_KEY=your_key_here" > .env
+source .env
+```
+
+Option 2: Use credential storage (alternative)
+
+```bash
+export OPENROUTER_API_KEY="$(pass show openrouter/api_key)"
+```
+
+### `prepare-commit-msg`
+
+Welcome to `prepare-commit-msg`, a git hook that automatically generates conventional commit messages using AI based on
+your staged git changes. Your commit messages will look like this:
+
+[![VS Code Preview 1](./images/vs-code-1.png)](./images/vs-code-1.png)
+
+[![VS Code Preview 2](./images/vs-code-2.png)](./images/vs-code-2.png)
+
+[![GitHub PR Preview](./images/gh-pr.png)](./images/gh-pr.png)
+
+#### Features
 
 - 🤖 AI-powered commit message generation (using `google/gemini-flash-1.5-8b` - SUPER CHEAP!)
   - Around $0.00001/commit -> $1 per 100K commit messages!
 - 📝 Follows [Conventional Commits](https://www.conventionalcommits.org/) format
-- 🔒 Secure local API key storage
-- 🚀 Automatic git commit and push
 - 🐛 Debug mode for troubleshooting
-- 💻 Cross-platform support (Windows, Linux, macOS)
 
-## Prerequisites
+#### Installation
 
-- Git installed and configured
-- For Windows: Git Bash or WSL installed
-- For Linux/macOS: Bash shell environment
-- An [OpenRouter](https://openrouter.ai/) API key
-- `curl` installed
+1. Install [`pre-commit`](https://pre-commit.com/#install).
+2. Add hook configuration to `.pre-commit-config.yaml`.
+   ```yaml
+   # See https://pre-commit.com for more information
+   # See https://pre-commit.com/hooks.html for more hooks
+   repos:
+     - repo: https://github.com/partcad/pre-commit
+       rev: pre-commit
+       hooks:
+         - id: prepare-commit-msg
+           verbose: true
+   ```
 
-## Installation
+By default, only filenames collected using `git diff --cached --name-status` will be sent to OpenRouter. If you want to
+share commit diffs using `git diff --cached` with OpenRouter and get more detailed commit messages, you can use the
+`--open-source` option.
 
-### Linux/macOS
+> If you set custom `args` you will have to provide `--commit-msg-filename` as last argument.
 
-1. Clone this repository: 
-
-```bash
-git clone https://github.com/mrgoonie/cmai.git
-cd cmai
+```yaml
+- id: prepare-commit-msg
+  args: [
+     "--debug",
+     "--open-source",
+     "--commit-msg-filename",
+]
 ```
 
-2. Run the installation script:
+### `keep-a-changelog`
 
-```bash
-./install.sh
-```
+#### Features
 
-This will:
-- Create necessary directories
-- Install the script globally as `cmai`
-- Set up proper permissions
+- 🤖 AI-powered commit message generation (using `google/gemini-flash-1.5-8b` - SUPER CHEAP!)
+  - Around $0.00001/commit -> $1 per 100K commit messages!
+- 📝 Follows [Keep a Changelog](https://keepachangelog.com/) format
+- 🐛 Debug mode for troubleshooting
 
-### Windows
+#### Installation
 
-1. Clone this repository:
+1. Install [`pre-commit`](https://pre-commit.com/#install).
+2. Add hook configuration to `.pre-commit-config.yaml`.
+   ```yaml
+   # See https://pre-commit.com for more information
+   # See https://pre-commit.com/hooks.html for more hooks
+   repos:
+     - repo: https://github.com/partcad/pre-commit
+       rev: pre-commit
+       hooks:
+         - id: keep-a-changelog
+           verbose: true
+   ```
 
-```bash
-git clone https://github.com/mrgoonie/cmai.git
-cd cmai
-```
+## API Security
 
-2. Run the installation script in Git Bash:
-
-```bash
-./install.sh
-```
-
-Or manually:
-- Copy `git-commit.sh` to `%USERPROFILE%\git-commit-ai\`
-- Add the directory to your PATH environment variable
-- Rename `git-commit.sh` to `cmai.sh`
-
-This will:
-- Create necessary directories
-- Install the script globally as `cmai`
-- Set up proper permissions
-
-## Configuration
-
-Set up your OpenRouter API key:
-
-```bash
-cmai <your_openrouter_api_key>
-```
-
-The API key will be securely stored in:
-- Linux/macOS: `~/.config/git-commit-ai/config`
-- Windows: `%USERPROFILE%\.config\git-commit-ai\config`
-
-## Usage
-
-![Usage Demonstration](./usage.png)
-
-1. Make your code changes
-2. Generate commit message and commit changes:
-
-```bash
-cmai
-```
-
-To also push changes to remote:
-```bash
-cmai --push
-# or
-cmai -p
-```
-
-To use a different AI model:
-```bash
-cmai --model qwen/qwen-2.5-coder-32b-instruct
-```
-
-List of available models: https://openrouter.ai/models
-
-This will:
-- Stage all changes
-- Generate a commit message using AI
-- Commit the changes
-- Push to the remote repository (if --push flag is used)
-
-### Debug Mode
-
-To see detailed information about what's happening:
-
-```bash
-cmai --debug
-```
-
-You can combine flags:
-```bash
-cmai --debug --push
-```
-
-## Examples
-
-```bash
-# First time setup with API key
-cmai your_openrouter_api_key
-
-# Normal usage
-cmai
-
-# Commit and push
-cmai --push
-
-# Debug mode
-cmai --debug
-
-# Debug mode with push
-cmai --debug --push
-
-# Use a different AI model
-cmai --model qwen/qwen-2.5-coder-32b-instruct
-
-# Combine multiple flags
-cmai --debug --push --model qwen/qwen-2.5-coder-32b-instruct
-```
-
-Example generated commit messages:
-- `feat(api): add user authentication system`
-- `fix(data): resolve memory leak in data processing`
-- `docs(api): update API documentation`
-- `style(ui): improve responsive layout for mobile devices`
-
-## Directory Structure
-
-### Linux/macOS
-
-```
-~
-├── git-commit-ai/
-│ └── git-commit.sh
-├── .config/
-│ └── git-commit-ai/
-│ └── config
-└── usr/
-└── local/
-└── bin/
-└── cmai -> ~/git-commit-ai/git-commit.sh
-```
-
-### Windows
-
-```
-%USERPROFILE%
-├── git-commit-ai/
-│ └── cmai.sh
-└── .config/
-└── git-commit-ai/
-└── config
-```
-
-## Security
-
-- API key is stored locally with restricted permissions (600)
-- Configuration directory is protected (700)
-- No data is stored or logged except the API key
+- API key is stored in environment variable or secure credential storage
+- No data is persisted except the API key in your secure storage
 - All communication is done via HTTPS
 
-## Troubleshooting
+## Data Privacy
 
-1. **No API key found**
-   - Run `cmai your_openrouter_api_key` to configure
+- By default, only file names are sent to OpenRouter
+- When using `--open-source`, complete diffs are sent
+- Consider reviewing changes before staging to avoid leaking sensitive data
 
-2. **Permission denied**
-   - Check file permissions: `ls -la ~/.config/git-commit-ai`
-   - Should show: `drwx------` for directory and `-rw-------` for config file
+### Security and Privacy Considerations for `--open-source` Option
 
-3. **Debug mode**
-   - Run with `--debug` flag to see detailed logs
-   - Check API responses and git operations
+When you use the `--open-source` option, the complete diffs of your staged changes are sent to the OpenRouter API to
+generate more detailed commit messages. This means that the actual content of your code changes — including additions,
+deletions, and modifications — is transmitted over the network. While OpenRouter uses secure HTTPS connections to
+protect data in transit, sharing full diffs can potentially expose sensitive code, proprietary algorithms, or
+confidential information. It's important to ensure that your code does not contain any sensitive or private data before
+using this option. By default, only filenames collected using `git diff --cached --name-status` are sent, minimizing the
+amount of information shared.
 
-4. **Windows-specific issues**
-   - Make sure Git Bash is installed
-   - Check if curl is available in Git Bash
-   - Verify PATH environment variable includes the installation directory
+## Rate Limiting & Costs
+
+- API is rate limited to prevent abuse
+- Costs approximately $0.00001 per commit
+- Large diffs may incur higher costs
 
 ## Uninstallation
 
-### Linux/macOS
+- [`pre-commit uninstall`](https://pre-commit.com/#pre-commit-uninstall)
+
+## Development
+
+Consider reading at least following docs for `pre-commit`:
+
+- [Creating new hooks](https://pre-commit.com/#new-hooks)
+- [Supported git hooks - `prepare-commit-msg`](https://pre-commit.com/#prepare-commit-msg)
+- [Creating new hooks - `stages`](https://pre-commit.com/#hooks-stages)
+
+You can use following snippet for local testing:
 
 ```bash
-bash
-sudo rm /usr/local/bin/cmai
-rm -rf ~/git-commit-ai
-rm -rf ~/.config/git-commit-ai
+# Stage some changes
+git add .
+
+# Trigger hook
+pre-commit try-repo \
+   --verbose \
+   --hook-stage=prepare-commit-msg \
+   --commit-msg-filename=$(mktemp) \
+   . \
+   prepare-commit-msg \
+   --verbose \
+   --all-files \
 ```
 
-### Windows
+...but it's easier just work in the fork directly and let `.pre-commit-hooks.yaml` do the magic for you.
 
-```bash
-rm -rf "$USERPROFILE/git-commit-ai"
-rm -rf "$USERPROFILE/.config/git-commit-ai"
-```
-Then remove the directory from your PATH environment variable
+## Licenses
 
-## Contributing
+- Original work in upstream [`mrgoonie/cmai.git`] licensed under [MIT]
+- This fork is licensed under [Apache License 2.0]
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes (using `cmai` 😉)
-4. Push to the branch
-5. Create a Pull Request
+## Roadmap
 
-## License
+- [ ] Cross-platform support (Windows, Linux, macOS)
+- [ ] Allow direct usage of LLMs.
+  - Add Ollama integration.
+- [ ] Integrate with 1Password.
+- [ ] Allow truncate data which is sent to OpenRouter.
+- [x] Create dedicated hook for updating `CHANGELOG.md`
+- [x] Add GitHub stars chart.
+- [x] Allow override user prompt.
+- [x] Allow override system prompt.
 
-MIT License - see LICENSE file for details
+## Star History
 
-## Acknowledgments
+[![Star History Chart](https://api.star-history.com/svg?repos=partcad/prepare-commit-msg&type=Date)](https://star-history.com/#partcad/prepare-commit-msg&Date)
 
-- [OpenRouter](https://openrouter.ai/) for providing the AI API
-- [Conventional Commits](https://www.conventionalcommits.org/) for the commit message format
-
-## My other products
-
-- [DigiCord AI](https://digicord.site) - The Most Useful AI Chatbot on Discord
-- [IndieBacklink.com](https://indiebacklink.com) - Indie Makers Unite: Feature, Support, Succeed
-- [TopRanking.ai](https://topranking.ai) - AI Directory, listing AI products
-- [ZII.ONE](https://zii.one) - Personalized Link Shortener
-- [VidCap.xyz](https://vidcap.xyz) - Extract Youtube caption, download videos, capture screenshot, summarize,…
-- [ReadTube.me](https://readtube.me) - Write blog articles based on Youtube videos
-- [BoostTogether.com](https://boosttogether.com) - The Power of WE in Advertising
-- [AIVN.Site](https://aivn.site) - Face Swap, Remove BG, Photo Editor,…
-- [DxUp.dev](https://dxup.dev) - Developer-focused platform for app deployment & centralized cloud resource management.
+[Apache License 2.0]: https://github.com/partcad/pre-commit/blob/main/.github/LICENSE
+[`mrgoonie/cmai.git`]: https://github.com/mrgoonie/cmai
+[MIT]: https://github.com/mrgoonie/cmai/tree/3398ab52778b999fa170a734411be6d69c4f1697?tab=readme-ov-file#license
