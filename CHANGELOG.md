@@ -84,3 +84,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - jq: Argument list too long #3
   - Cleaned up temporary files after API call.
+
+## [1.7.1] - 2024-12-02
+
+### Fixed
+
+- prepare-commit-msg.sh: line 237: /usr/bin/curl: Argument list too long
