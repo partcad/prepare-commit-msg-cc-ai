@@ -6,15 +6,16 @@ repos:
     hooks:
       - id: prepare-commit-msg
         name: Git Commit AI
-        entry: bash prepare-commit-msg.sh
+        entry: prepare-commit-msg.sh
         args: ["--open-source", "--commit-msg-filename"]
-        language: system
+        language: script
         stages: [prepare-commit-msg]
       - id: keep-a-changelog
         name: Changelog AI
         description: A hook to assist with updating CHANGELOG.md using AI.
-        entry: bash keep-a-changelog.sh
-        language: system
+        entry: keep-a-changelog.sh
+        language: script
+        fail_fast: true
         stages: [pre-commit]
         pass_filenames: false
   - repo: https://github.com/pre-commit/pre-commit-hooks

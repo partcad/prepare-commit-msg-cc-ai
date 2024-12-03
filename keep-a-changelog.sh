@@ -24,6 +24,8 @@ IMPORTANT:
   - Each line should be a concise summary (max 50 characters)
   - Do not include any explanation in your response
   - Do not wrap it in backticks
+  - DO NOT, I REPEAT DO NOT, remove or alter previous entries.
+  - Append new entries at the end of the file and that's it.
 EOF
 )
 

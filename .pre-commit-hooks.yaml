@@ -2,7 +2,7 @@
 - id: prepare-commit-msg
   name: Git Commit AI
   description: A hook to assist with git commit messages using AI.
-  entry: bash prepare-commit-msg.sh
+  entry: prepare-commit-msg.sh
   language: script
   args: ["--commit-msg-filename"]
   stages: [prepare-commit-msg]
@@ -10,7 +10,8 @@
 - id: keep-a-changelog
   name: Changelog AI
   description: A hook to assist with updating CHANGELOG.md using AI.
-  entry: bash keep-a-changelog.sh
+  entry: keep-a-changelog.sh
   language: script
+  fail_fast: true
   stages: [pre-commit]
   pass_filenames: false

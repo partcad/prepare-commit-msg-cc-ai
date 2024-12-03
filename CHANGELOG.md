@@ -65,3 +65,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Updated `pre-commit-hooks.yaml` to change the language of `Git Commit AI` and `Changelog AI` hooks to `script`.
+
+## [1.5.0] - 2024-12-10
+
+### Changed
+
+- Added fail_fast flag to Changelog AI hook.
