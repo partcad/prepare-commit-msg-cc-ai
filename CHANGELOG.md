@@ -83,3 +83,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - jq: Argument list too long #3
+  - Cleaned up temporary files after API call.

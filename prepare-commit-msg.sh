@@ -236,6 +236,8 @@ RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
     -H "Content-Type: application/json" \
     -d "$REQUEST_BODY")
 debug_log "API response received" "$RESPONSE"
+debug_log "Cleaning up temporary files"
+rm -v "$PROMPT_FILE" "$SYSTEM_PROMPT_FILE"
 
 # Check for errors
 if [[ "$RESPONSE" == *'"error"'* ]]; then
