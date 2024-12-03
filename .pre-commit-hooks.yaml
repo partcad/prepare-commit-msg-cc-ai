@@ -6,7 +6,7 @@
   language: script
   args: ["--commit-msg-filename"]
   stages: [prepare-commit-msg]
-  pass_filenames: false
+  pass_filenames: true
 - id: keep-a-changelog
   name: Changelog AI
   description: A hook to assist with updating CHANGELOG.md using AI.
