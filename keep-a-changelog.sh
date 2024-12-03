@@ -67,6 +67,7 @@ IMPORTANT:
 - Do not wrap it in backticks
 - Return the entire file, old and new entries included.
 - Keep all existing entries intact.
+- DO NOT, I REPEAT DO NOT, remove or alter previous entries.
 
 Here is output from \`git diff --cached\`:
 
