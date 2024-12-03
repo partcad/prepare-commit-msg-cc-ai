@@ -66,8 +66,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Updated `pre-commit-hooks.yaml` to change the language of `Git Commit AI` and `Changelog AI` hooks to `script`.
 
-## [1.5.0] - 2024-12-10
+## [1.5.0] - 2024-12-02
 
 ### Changed
 
 - Added fail_fast flag to Changelog AI hook.
+
+## [1.6.0] - 2024-12-02
+
+### Changed
+
+- Enable passing filenames to commit-msg hook
+
+## [1.7.0] - 2024-12-02
+
+### Fixed
+
+- jq: Argument list too long #3
