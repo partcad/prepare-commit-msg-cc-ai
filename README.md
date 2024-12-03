@@ -180,11 +180,26 @@ Join `#pre-commit` channel on
 
 ## Roadmap
 
+- [ ] Integrate with 1Password.
+- [ ] Allow truncate data which is sent to OpenRouter.
 - [ ] Cross-platform support (Windows, Linux, macOS)
 - [ ] Allow direct usage of LLMs.
   - Add Ollama integration.
-- [ ] Integrate with 1Password.
-- [ ] Allow truncate data which is sent to OpenRouter.
+
+### Keep a Changelog
+
+- [ ] Move to JSON format.
+- [ ] Use JSON schema for response validation.
+- [ ] Send only current version number of the changelog.
+  - [ ] Let LLM decide which version part should be updated (major, minor, patch).
+
+### Conventional Commits
+
+- [ ] Move to JSON format.
+- [ ] Format message to wrap at 50 characters.
+
+### Done
+
 - [x] Create dedicated hook for updating `CHANGELOG.md`
 - [x] Add GitHub stars chart.
 - [x] Allow override user prompt.
