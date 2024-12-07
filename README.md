@@ -11,6 +11,11 @@ Fed up with crafting commit messages by hand?
 - [Conventional Commits](https://www.conventionalcommits.org/) for the commit message format.
 - [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) for the changelog format.
 
+### Related Projects
+
+- https://github.com/insulineru/ai-commit
+- https://github.com/compilerla/conventional-pre-commit
+
 ## Prerequisites
 
 - `git` installed and configured
