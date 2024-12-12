@@ -114,3 +114,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added $REQUEST_BODY_FILE for curl request and cleanup.
 - Secure permissions on temporary files - `chmod 600`.
+
+## [1.8.2] - 2024-12-12
+
+### Changed
+
+- Added transforms for improved results.
+- Modified `keep-a-changelog.sh` and `prepare-commit-msg.sh` for better results.

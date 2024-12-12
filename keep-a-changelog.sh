@@ -218,6 +218,7 @@ REQUEST_BODY=$(jq -n \
     --rawfile system "$SYSTEM_PROMPT_FILE" \
     '{
         stream: false,
+        transforms: ["middle-out"],
         model: $model,
         messages: [
             {role: "user", content: $prompt},

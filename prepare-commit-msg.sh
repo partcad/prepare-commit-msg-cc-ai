@@ -231,6 +231,7 @@ REQUEST_BODY=$(jq -n \
     '{
         stream: false,
         model: $model,
+        transforms: ["middle-out"],
         messages: [
             {role: "user", content: $prompt},
             {role: "system", content: $system}
