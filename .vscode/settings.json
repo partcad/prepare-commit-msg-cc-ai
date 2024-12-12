@@ -23,9 +23,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "editor.insertSpaces": true,
-  "editor.rulers": [
-    120
-  ],
+  "editor.rulers": [120],
   "editor.tabSize": 2,
   "editor.useTabStops": false,
   "files.encoding": "utf8",
@@ -46,8 +44,5 @@
   "terminal.integrated.fontFamily": "'Hack Nerd Font Mono', Consolas, 'Courier New', monospace",
   "terminal.integrated.scrollback": 10000000,
   "workbench.colorTheme": "GitHub Dark",
-  "cSpell.words": [
-    "behaviour",
-    "EDITMSG"
-  ],
+  "cSpell.words": ["behaviour", "EDITMSG", "OPENROUTER"]
 }

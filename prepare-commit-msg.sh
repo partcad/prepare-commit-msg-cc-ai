@@ -23,6 +23,8 @@ IMPORTANT
   - Do not include any explanation in your response
   - Only return a commit message content
   - Do not wrap it in backticks
+  - One change per line.
+  - All lines should be a concise summary (max 80 characters)
 EOF
 )
 
@@ -175,9 +177,9 @@ fi
 
 # Get git changes
 if [ "$OPEN_SOURCE" = true ]; then
-    CHANGES=$(git diff --cached)
+    CHANGES=$(git diff --cached --ignore-all-space)
 else
-    CHANGES=$(git diff --cached --name-status)
+    CHANGES=$(git diff --cached --ignore-all-space --name-status)
 fi
 
 
@@ -212,6 +214,14 @@ debug_log "Prompt saved to $PROMPT_FILE"
 SYSTEM_PROMPT_FILE=$(mktemp)
 echo "$SYSTEM_PROMPT" > "$SYSTEM_PROMPT_FILE"
 debug_log "System prompt saved to $SYSTEM_PROMPT_FILE"
+
+# Ensure cleanup on script exit
+cleanup() {
+    local exit_code=$?
+    rm -f "$PROMPT_FILE" "$SYSTEM_PROMPT_FILE" "$REQUEST_BODY_FILE" 2>/dev/null
+    exit $exit_code
+}
+trap cleanup EXIT INT TERM
 
 # Prepare the request body
 REQUEST_BODY=$(jq -n \

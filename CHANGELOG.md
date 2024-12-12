@@ -83,10 +83,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - jq: Argument list too long #3
-  - Cleaned up temporary files after API call.
+- Cleaned up temporary files after API call.
 
 ## [1.7.1] - 2024-12-02
 
 ### Fixed
 
 - prepare-commit-msg.sh: line 237: /usr/bin/curl: Argument list too long
+
+## [1.8.0] - 2024-12-12
+
+### Fixed
+
+- Fixed `git diff` command to ignore whitespace.
+
+### Changed
+
+- Added `postCreateCommand` to `devcontainer.json` for `pre-commit` installation.
+- Modified `keep-a-changelog.sh` to use `git diff --cached --ignore-all-space` to reduce API call size.
+- Modified `prepare-commit-msg.sh` to handle whitespace discrepancies with `git diff --cached --ignore-all-space`.
+- Use temporary files to store user and system prompts.
+- Added cleanup for temp files on script exit in keep-a-changelog.sh and prepare-commit-msg.sh.
+- Renamed "Changelog AI" hooks to "PartCAD: Update CHANGELOG.md"
+- Renamed "Git Commit AI" hooks to "PartCAD: Prepare Commit Message"
+- Improved cleanup mechanism for temporary files
