@@ -205,7 +205,7 @@ debug_log "System prompt saved to $SYSTEM_PROMPT_FILE"
 # Ensure cleanup on script exit
 cleanup() {
     local exit_code=$?
-    rm -f "$PROMPT_FILE" "$SYSTEM_PROMPT_FILE" 2>/dev/null
+    rm -f "$PROMPT_FILE" "$SYSTEM_PROMPT_FILE" "$REQUEST_BODY_FILE" 2>/dev/null
     exit $exit_code
 }
 trap cleanup EXIT INT TERM
@@ -227,13 +227,19 @@ REQUEST_BODY=$(jq -n \
 )
 debug_log "Request body prepared with model: $MODEL" "$REQUEST_BODY"
 
+REQUEST_BODY_FILE=$(mktemp)
+echo "$REQUEST_BODY" > "$REQUEST_BODY_FILE"
+debug_log "Request body saved to $REQUEST_BODY_FILE"
+
 # Make the API request
 debug_log "Making API request to OpenRouter"
 RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
     -H "Authorization: Bearer ${OPENROUTER_API_KEY}" \
     -H "Content-Type: application/json" \
-    -d "$REQUEST_BODY")
+    -d @"$REQUEST_BODY_FILE")
 debug_log "API response received" "$RESPONSE"
+debug_log "Cleaning up temporary files"
+rm -v "$REQUEST_BODY_FILE"
 
 # Check for errors
 if [[ "$RESPONSE" == *'"error"'* ]]; then

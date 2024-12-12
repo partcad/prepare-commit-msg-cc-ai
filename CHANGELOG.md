@@ -107,3 +107,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Renamed "Changelog AI" hooks to "PartCAD: Update CHANGELOG.md"
 - Renamed "Git Commit AI" hooks to "PartCAD: Prepare Commit Message"
 - Improved cleanup mechanism for temporary files
+- Added $REQUEST_BODY_FILE for curl request and cleanup.
