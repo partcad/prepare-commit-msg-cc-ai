@@ -232,6 +232,11 @@ if [ ! -f "$REQUEST_BODY_FILE" ]; then
     echo "ERROR: Failed to create temporary file"
     exit 1
 fi
+chmod 600 "$REQUEST_BODY_FILE" || {
+    echo "ERROR: Failed to set secure permissions on temporary file"
+    rm -f "$REQUEST_BODY_FILE"
+    exit 1
+}
 echo "$REQUEST_BODY" > "$REQUEST_BODY_FILE"
 debug_log "Request body saved to $REQUEST_BODY_FILE"
 

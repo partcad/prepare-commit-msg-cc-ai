@@ -110,4 +110,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [1.8.1] - 2024-12-12
 
+### Added
+
 - Added $REQUEST_BODY_FILE for curl request and cleanup.
+- Secure permissions on temporary files - `chmod 600`.
