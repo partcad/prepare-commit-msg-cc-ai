@@ -127,3 +127,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added filtering for `.stl` and `.step` files in `git diff` to avoid unnecessary API requests.
 - Improved error handling and logging (potential debugging improvements).
 - Added `--fail` option to curl requests.
+- Added examples of API costs.
