@@ -104,3 +104,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Modified `prepare-commit-msg.sh` to handle whitespace discrepancies with `git diff --cached --ignore-all-space`.
 - Use temporary files to store user and system prompts.
 - Added cleanup for temp files on script exit in keep-a-changelog.sh and prepare-commit-msg.sh.
+- Renamed "Changelog AI" hooks to "PartCAD: Update CHANGELOG.md"
+- Renamed "Git Commit AI" hooks to "PartCAD: Prepare Commit Message"
+- Improved cleanup mechanism for temporary files

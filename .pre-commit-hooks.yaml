@@ -1,6 +1,6 @@
 # https://pre-commit.com/#creating-new-hooks
 - id: prepare-commit-msg
-  name: Git Commit AI
+  name: "PartCAD: Prepare Commit Message"
   description: A hook to assist with git commit messages using AI.
   entry: prepare-commit-msg.sh
   language: script
@@ -8,7 +8,7 @@
   stages: [prepare-commit-msg]
   pass_filenames: true
 - id: keep-a-changelog
-  name: Changelog AI
+  name: "PartCAD: Update CHANGELOG.md"
   description: A hook to assist with updating CHANGELOG.md using AI.
   entry: keep-a-changelog.sh
   language: script
