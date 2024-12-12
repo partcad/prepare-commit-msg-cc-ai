@@ -177,9 +177,9 @@ fi
 
 # Get git changes
 if [ "$OPEN_SOURCE" = true ]; then
-    CHANGES=$(git diff --cached --ignore-all-space)
+    CHANGES=$(git diff --cached --ignore-all-space -- ':!*.stl' ':!*.step')
 else
-    CHANGES=$(git diff --cached --ignore-all-space --name-status)
+    CHANGES=$(git diff --cached --ignore-all-space --name-status -- ':!*.stl' ':!*.step')
 fi
 
 
