@@ -1,3 +1,7 @@
+![GitHub Release](https://img.shields.io/github/v/release/partcad/pre-commit)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Keep a Changelog v1.1.0 badge][changelog-badge]][changelog] [![Apache 2.0 License Badge][license-badge]][license]
+
 # `pre-commit` - Git Hooks backed by AI
 
 Fed up with crafting commit messages by hand?
@@ -217,3 +221,8 @@ Join `#pre-commit` channel on
 [Apache License 2.0]: https://github.com/partcad/pre-commit/blob/main/.github/LICENSE
 [`mrgoonie/cmai.git`]: https://github.com/mrgoonie/cmai
 [MIT]: https://github.com/mrgoonie/cmai/tree/3398ab52778b999fa170a734411be6d69c4f1697?tab=readme-ov-file#license
+[changelog]: ./CHANGELOG.md
+[changelog-badge]: https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.1.0-%23E05735
+[license]: ./.github/LICENSE
+[version-badge]: https://img.shields.io/badge/version-1.8.1-blue.svg
+[license-badge]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg
