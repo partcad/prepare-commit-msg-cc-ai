@@ -23,6 +23,8 @@ IMPORTANT
   - Do not include any explanation in your response
   - Only return a commit message content
   - Do not wrap it in backticks
+  - One change per line.
+  - All lines should be a concise summary (max 80 characters)
 EOF
 )
 
@@ -175,9 +177,9 @@ fi
 
 # Get git changes
 if [ "$OPEN_SOURCE" = true ]; then
-    CHANGES=$(git diff --cached)
+    CHANGES=$(git diff --cached --ignore-all-space)
 else
-    CHANGES=$(git diff --cached --name-status)
+    CHANGES=$(git diff --cached --ignore-all-space --name-status)
 fi
 
 

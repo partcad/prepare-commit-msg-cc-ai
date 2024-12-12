@@ -160,7 +160,7 @@ if [ -n "$(git diff --cached --name-only -- "${CHANGELOG_FILENAME}")" ]; then
 fi
 
 # Get git changes
-CHANGES=$(git diff --cached)
+CHANGES=$(git diff --cached --ignore-all-space)
 CURRENT_CHANGELOG=""
 if [ -f "${CHANGELOG_FILENAME}" ]; then
     CURRENT_CHANGELOG=$(cat "${CHANGELOG_FILENAME}")
@@ -194,11 +194,19 @@ if [ -z "$OPENROUTER_API_KEY" ]; then
     exit 1
 fi
 
+PROMPT_FILE=$(mktemp)
+echo "$USER_PROMPT" > "$PROMPT_FILE"
+debug_log "Prompt saved to $PROMPT_FILE"
+
+SYSTEM_PROMPT_FILE=$(mktemp)
+echo "$SYSTEM_PROMPT" > "$SYSTEM_PROMPT_FILE"
+debug_log "System prompt saved to $SYSTEM_PROMPT_FILE"
+
 # Prepare the request body
 REQUEST_BODY=$(jq -n \
     --arg model "$MODEL" \
-    --arg prompt "$USER_PROMPT" \
-    --arg system "$SYSTEM_PROMPT" \
+    --rawfile prompt "$PROMPT_FILE" \
+    --rawfile system "$SYSTEM_PROMPT_FILE" \
     '{
         stream: false,
         model: $model,
