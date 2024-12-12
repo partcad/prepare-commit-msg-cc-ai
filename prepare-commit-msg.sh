@@ -242,15 +242,22 @@ debug_log "Cleaning up temporary files"
 rm -v "$PROMPT_FILE" "$SYSTEM_PROMPT_FILE"
 
 REQUEST_BODY_FILE=$(mktemp)
+if [ ! -f "$REQUEST_BODY_FILE" ]; then
+    echo "ERROR: Failed to create temporary file"
+    exit 1
+fi
 echo "$REQUEST_BODY" > "$REQUEST_BODY_FILE"
 debug_log "Request body saved to $REQUEST_BODY_FILE"
 
 # Make the API request
 debug_log "Making API request to OpenRouter"
-RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
+if ! RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
     -H "Authorization: Bearer ${OPENROUTER_API_KEY}" \
     -H "Content-Type: application/json" \
-    -d @"$REQUEST_BODY_FILE")
+    -d @"$REQUEST_BODY_FILE"); then
+    echo "ERROR: API request failed with exit code $?"
+    exit 1
+fi
 debug_log "API response received" "$RESPONSE"
 debug_log "Cleaning up temporary files"
 rm -v "$REQUEST_BODY_FILE"
