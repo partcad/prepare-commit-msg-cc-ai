@@ -10,7 +10,7 @@
     "OPENROUTER_MODEL": "${localEnv:OPENROUTER_MODEL}"
   },
   "postCreateCommand": {
-    "pre-commit": "cd /workspaces/pre-commit && /usr/local/py-utils/bin/pre-commit install"
+    "pre-commit": "pre-commit install"
   },
   "features": {
     "ghcr.io/devcontainers/features/python:1": {

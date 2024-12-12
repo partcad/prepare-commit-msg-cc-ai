@@ -215,6 +215,9 @@ SYSTEM_PROMPT_FILE=$(mktemp)
 echo "$SYSTEM_PROMPT" > "$SYSTEM_PROMPT_FILE"
 debug_log "System prompt saved to $SYSTEM_PROMPT_FILE"
 
+# Ensure cleanup on script exit
+trap 'rm -f "$PROMPT_FILE" "$SYSTEM_PROMPT_FILE"' EXIT
+
 # Prepare the request body
 REQUEST_BODY=$(jq -n \
     --arg model "$MODEL" \

@@ -103,3 +103,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Modified `keep-a-changelog.sh` to use `git diff --cached --ignore-all-space` to reduce API call size.
 - Modified `prepare-commit-msg.sh` to handle whitespace discrepancies with `git diff --cached --ignore-all-space`.
 - Use temporary files to store user and system prompts.
+- Added cleanup for temp files on script exit in keep-a-changelog.sh and prepare-commit-msg.sh.
