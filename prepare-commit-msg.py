@@ -10,9 +10,9 @@ import subprocess
 
 USER_PROMPT = """Generate a commit message based on the following changes below:
 
-\```
+```
 {}
-\```
+```
 
 IMPORTANT
 
@@ -97,9 +97,7 @@ Commit message with multi-paragraph body and multiple footers:
 @click.option('--model', default='google/gemini-flash-1.5-8b', help='Select AI model.')
 @click.option('--commit-msg-filename', required=True, help='Path to the commit message file.')
 @click.option('--open-source', is_flag=True, help='Send complete diff instead of just filenames')
-@click.option('--system-prompt', default=None, help='Override system prompt.')
-@click.option('--user-prompt', default=None, help='Override user prompt.')
-def main(debug, model, commit_msg_filename, open_source, system_prompt, user_prompt):
+def main(debug, model, commit_msg_filename, open_source):
     def debug_log(message, content=None):
         if debug:
             click.echo(f"DEBUG: {message}")
@@ -139,7 +137,7 @@ def main(debug, model, commit_msg_filename, open_source, system_prompt, user_pro
     
     # Extract and clean the commit message
     # First, try to parse the response as JSON and extract the content
-    commit_full = extract_commit_message(response)
+    commit_full = extract_commit_message(response, debug_log)
     if not commit_full:
         click.echo("ERROR: Failed to extract commit message from API response.", err=True)
         return

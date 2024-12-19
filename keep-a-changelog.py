@@ -12,9 +12,9 @@ USER_PROMPT = """I want to update my CHANGELOG.md file following Keep a Changelo
 
 Ensure the release notes are appended below previous entries and use the Keep a Changelog format. If the file doesn't exist, create it.
 
-\```
+```
 {}
-\```
+```
 
 IMPORTANT:
   - Group changes by category (Added, Changed, Deprecated, Removed, Fixed, Security)
@@ -39,25 +39,25 @@ Follow the Keep a Changelog format strictly:
 
 If the file does not exist, initialize it with:
 
-\```
+```
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-\```
+```
 
 Example for a new release:
 
-\```markdown
+```
 ## [1.2.0] - 2024-12-01
 ### Added
 - Added support for user authentication.
 
 ### Fixed
 - Fixed an issue with pagination on the main feed.
-\```
+```
 
 IMPORTANT:
 - Ensure entries are clear, concise, and accurately categorized.
@@ -67,19 +67,18 @@ IMPORTANT:
 - Keep all existing entries intact.
 - DO NOT, I REPEAT DO NOT, remove or alter previous entries.
 
-Here is the current changelog:
-\```
+Here is the output from `git diff --cached`:
+```
 {}
-\```
+```
 """
 
 @click.command()
 @click.option('--debug', is_flag=True, help='Enable debug logging.')
 @click.option('--model', default='google/gemini-flash-1.5-8b', help='Select AI model.')
 @click.option('--changelog-filename', default='CHANGELOG.md', help='Filename of the changelog.')
-@click.option('--system-prompt', default=None, help='Override system prompt.')
-@click.option('--user-prompt', default=None, help='Override user prompt.')
-def main(debug, model, changelog_filename, system_prompt, user_prompt):
+def main(debug, model, changelog_filename):
+
     def debug_log(message, content=None):
         if debug:
             click.echo(f"DEBUG: {message}")
@@ -210,7 +209,9 @@ def extract_generated_changelog(response, debug_log):
     generated_changelog = re.sub(r'^\s+', '', generated_changelog)
     generated_changelog = re.sub(r'\s+$', '', generated_changelog)
     generated_changelog = re.sub(r'\\[a-zA-Z]+', '', generated_changelog)
-    generated_changelog = debug_log("Extracted relevant notes", generated_changelog)
+
+    debug_log("Extracted relevant notes", generated_changelog)
+
     return generated_changelog
 
 
