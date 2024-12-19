@@ -6,14 +6,14 @@ repos:
     hooks:
       - id: prepare-commit-msg
         name: "PartCAD: Prepare Commit Message"
-        entry: prepare-commit-msg.sh
+        entry: prepare-commit-msg.py
         args: ["--open-source", "--commit-msg-filename"]
         language: script
         stages: [prepare-commit-msg]
       - id: keep-a-changelog
         name: "PartCAD: Update CHANGELOG.md"
         description: A hook to assist with updating CHANGELOG.md using AI.
-        entry: keep-a-changelog.sh
+        entry: keep-a-changelog.py
         language: script
         fail_fast: true
         stages: [pre-commit]
