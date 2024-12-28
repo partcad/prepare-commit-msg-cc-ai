@@ -146,6 +146,8 @@ amount of information shared.
 - Costs approximately $0.00001 per commit
 - Large diffs may incur higher costs
 
+![Costs](./images/costs.png)
+
 ## Uninstallation
 
 - [`pre-commit uninstall`](https://pre-commit.com/#pre-commit-uninstall)

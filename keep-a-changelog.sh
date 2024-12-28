@@ -132,6 +132,11 @@ EOF
     esac
 done
 
+# # Enable debug mode if DEBUG is set to true
+# if [ "$DEBUG" = true ]; then
+#   set -x
+# fi
+
 # Debug function
 debug_log() {
     if [ "$DEBUG" = true ]; then
@@ -160,19 +165,18 @@ if [ -n "$(git diff --cached --name-only -- "${CHANGELOG_FILENAME}")" ]; then
 fi
 
 # Get git changes
-CHANGES=$(git diff --cached --ignore-all-space)
+CHANGES=$(git diff --cached --ignore-all-space -- ':!*.stl' ':!*.step')
 CURRENT_CHANGELOG=""
 if [ -f "${CHANGELOG_FILENAME}" ]; then
     CURRENT_CHANGELOG=$(cat "${CHANGELOG_FILENAME}")
 fi
 
-# # Maximum size of changes to send to API (in bytes)
-# MAX_CHANGES_SIZE=10000
-#
-# if [ "${#CHANGES}" -gt "$MAX_CHANGES_SIZE" ]; then
-#     CHANGES=$(echo "$CHANGES" | head -c "$MAX_CHANGES_SIZE")
-#     CHANGES+=$'\n... (truncated due to size)'
-# fi
+# Maximum size of changes to send to API (in bytes)
+MAX_CHANGES_SIZE=10000
+if [ "${#CHANGES}" -gt "$MAX_CHANGES_SIZE" ]; then
+    CHANGES=$(echo "$CHANGES" | head -c "$MAX_CHANGES_SIZE")
+    CHANGES+=$'\n... (truncated due to size)'
+fi
 
 # shellcheck disable=SC2059
 USER_PROMPT=$(printf "$USER_PROMPT" "$CHANGES")
@@ -244,6 +248,7 @@ debug_log "Request body saved to $REQUEST_BODY_FILE"
 # Make the API request
 debug_log "Making API request to OpenRouter"
 if ! RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
+    --fail \
     -H "Authorization: Bearer ${OPENROUTER_API_KEY}" \
     -H "Content-Type: application/json" \
     -d @"$REQUEST_BODY_FILE"); then
@@ -254,6 +259,10 @@ debug_log "API response received" "$RESPONSE"
 debug_log "Cleaning up temporary files"
 rm -v "$REQUEST_BODY_FILE" 2>/dev/null || true
 
+# TODO: Check if the response is valid JSON, if not print the response and exit
+# echo "API response:"
+# echo $RESPONSE
+# echo "API response end"
 # Check for errors
 if [[ "$RESPONSE" == *'"error"'* ]]; then
     error_message=$(echo "$RESPONSE" | jq -r '.error.message // .error // "Unknown error"')

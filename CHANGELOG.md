@@ -121,3 +121,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added transforms for improved results.
 - Modified `keep-a-changelog.sh` and `prepare-commit-msg.sh` for better results.
+
+## [1.8.3] - 2024-12-12
+
+- Added filtering for `.stl` and `.step` files in `git diff` to avoid 5xx errors in API requests.
+- Improved error handling and logging (potential debugging improvements).
+- Added `--fail` option to curl requests.
+- Added examples of API costs.
